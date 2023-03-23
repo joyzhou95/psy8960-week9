@@ -7,13 +7,13 @@ library(tidyverse)
 # Data Import and Cleaning
 
 ## Used fromJSON to read the json file into a list that can be manipulated in R
-rstats_list <- fromJSON("https://www.reddit.com/r/rstats/.json")
+##Flattened data into non-nested structure to better convert it into dataframes later
+rstats_list <- fromJSON("https://www.reddit.com/r/rstats/.json", flatten = T)
 
-##Used list.select to select only the data list under children
-##Needed to wrap rstats_list with list() to create a list environment for list.select to work
-rstats_original_tbl <- list.select(list(rstats_list), data$children$data)
-
-
+##First selected the data dataframe out of rstats_list 
+##Then converted it into the dataframe for later data manipulation 
+rstats_original_tbl <- as.data.frame(rstats_list[["data"]][["children"]][-1])
+  
 
 
 
