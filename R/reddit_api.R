@@ -1,7 +1,6 @@
 # Script Settings and Resources
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 library(jsonlite)
-library(rlist)
 library(tidyverse)
 
 # Data Import and Cleaning
@@ -28,15 +27,28 @@ rstats_tbl <- rstats_original_tbl %>%
   as_tibble()
   
 # Visualization
+## Used rstats_tbl to create a scatterplot 
 rstats_tbl %>%
+  ## Set upvotes to be on the x-axis and comments on the y axis
   ggplot(aes(upvotes, comments)) +
+  ## Add the layer of scatterplot 
   geom_point()
 
 # Analysis 
-cor.test(rstats_tbl$upvotes, rstats_tbl$comments)$estimate
-cor.test(rstats_tbl$upvotes, rstats_tbl$comments)$p.value
+## Calulated correlation statistics between upvotes and comments using cor.test
+cor <- cor.test(rstats_tbl$upvotes, rstats_tbl$comments)
+## Displayed the correlation coefficient and p-value by selecting them from the output 
+cor$estimate
+cor$p.value
 
 
+# Publication
+## print(paste("The correlation between upvotes and comments was r(", cor$parameter ,  ") =", cor_value,",p =", cor_pvalue, ".","This test was statistically significant."))
+cor_value <- formatC(cor$estimate, format = "f", digits = 2)
+cor_value <- str_replace(string = cor_value, pattern = str_match(cor_value, pattern = '(0)\\.')[,2], replacement = "")
+cor_pvalue <- formatC(cor$p.value, format = "f", digits = 2) 
+cor_pvalue <- str_replace(string = cor_pvalue, pattern = str_match(cor_pvalue, pattern = '(0)\\.')[,2], replacement = "")
+  
 
 
 
