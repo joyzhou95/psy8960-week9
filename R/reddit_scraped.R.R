@@ -25,5 +25,6 @@ comments <- rstats_html %>%
   as.numeric() %>%
   replace_na(0)
 
-
+rstats_tbl <-tibble(post = post_title, upvotes = upvotes, comments = comments)
+                       
 
