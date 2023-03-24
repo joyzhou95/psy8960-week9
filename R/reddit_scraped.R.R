@@ -11,8 +11,19 @@ post_title <- rstats_html %>%
   html_elements(xpath = 'p[@class = "title"]/a') %>%
   html_text()
 
-rstats_html %>%
+upvotes <- rstats_html %>%
   html_elements(xpath = '//div[p[text() = "submitted "]]') %>%
   html_elements(xpath = '..//preceding-sibling::div[@class = "midcol unvoted"]') %>%
   html_elements(xpath = 'div[@class = "score unvoted"]') %>%
   html_text()
+
+comments <- rstats_html %>%
+  html_elements(xpath = '//div[p[text() = "submitted "]]') %>%
+  html_elements(xpath = '..//li[@class = "first"]/a') %>%
+  html_text() %>%
+  str_extract("\\d") %>%
+  as.numeric() %>%
+  replace_na(0)
+
+
+
