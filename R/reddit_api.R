@@ -32,6 +32,12 @@ rstats_tbl %>%
   ggplot(aes(upvotes, comments)) +
   geom_point()
 
+# Analysis 
+cor.test(rstats_tbl$upvotes, rstats_tbl$comments)$estimate
+cor.test(rstats_tbl$upvotes, rstats_tbl$comments)$p.value
+
+
+
 
 
 
