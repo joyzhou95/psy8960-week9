@@ -27,5 +27,11 @@ rstats_tbl <- rstats_original_tbl %>%
   ## Created a dataframe using the three variables 
   as_tibble()
   
-  
+# Visualization
+rstats_tbl %>%
+  ggplot(aes(upvotes, comments)) +
+  geom_point()
+
+
+
 
