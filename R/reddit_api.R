@@ -31,8 +31,10 @@ rstats_tbl <- rstats_original_tbl %>%
 rstats_tbl %>%
   ## Set upvotes to be on the x-axis and comments on the y axis
   ggplot(aes(upvotes, comments)) +
-  ## Add the layer of scatterplot 
-  geom_point()
+  ## Added the layer of scatterplot 
+  geom_point() +
+  ## Added a title for the plot
+  labs(title = "The Relationship between the Number of Upvotes and Comments")
 
 # Analysis 
 ## Calulated correlation statistics between upvotes and comments using cor.test
