@@ -43,7 +43,7 @@ cor$p.value
 
 
 # Publication
-## print(paste("The correlation between upvotes and comments was r(", cor$parameter ,  ") =", cor_value,",p =", cor_pvalue, ".","This test was statistically significant."))
+## print(paste("The correlation between upvotes and comments was r(", cor$parameter, ") =", cor_value,", p =", cor_pvalue, ".","This test was statistically significant."))
 
 ## Formatted the correlation values so that it only displays two decimal places
 cor_value <- formatC(cor$estimate, format = "f", digits = 2)
