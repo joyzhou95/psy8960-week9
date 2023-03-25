@@ -13,9 +13,9 @@ rstats_list <- fromJSON("https://www.reddit.com/r/rstats/.json", flatten = T)
 ## Then converted it into tibble format for later data manipulation, excluded the kind character from the final dataframe
 rstats_original_tbl <- as_tibble(rstats_list[["data"]][["children"]][-1])
 
-## Used pipelines to create new dataframe rstats_tbl with new variables    
+## Used pipelines to create a new dataframe "rstats_tbl" that contains new variables    
 rstats_tbl <- rstats_original_tbl %>% 
-  ## Created post variable with the first 25 observations from the data.title variable, still specified 1:25 rows inside brackets to ensure scalability  
+  ## Created the post variable using the data.title variable
   mutate(post = data.title,
          ## Created the upvotes variable using data.ups 
          upvotes = data.ups,
