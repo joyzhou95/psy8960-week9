@@ -16,11 +16,11 @@ rstats_original_tbl <- as_tibble(rstats_list[["data"]][["children"]][-1])
 ## Used pipelines to create new dataframe rstats_tbl with new variables    
 rstats_tbl <- rstats_original_tbl %>% 
   ## Created post variable with the first 25 observations from the data.title variable, still specified 1:25 rows inside brackets to ensure scalability  
-  mutate(post = data.title[1:25],
+  mutate(post = data.title,
          ## Created the upvotes variable using data.ups 
-         upvotes = data.ups[1:25],
+         upvotes = data.ups,
          ## Created the comments variabel using data.num_comments
-         comments = data.num_comments[1:25]) %>%
+         comments = data.num_comments) %>%
   ## Selected only the three variables we need
   select(post, upvotes, comments) %>%
   ## Created a dataframe using the three variables 
