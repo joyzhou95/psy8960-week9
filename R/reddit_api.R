@@ -9,9 +9,9 @@ library(tidyverse)
 ## Flattened data into non-nested structure to better convert it into dataframes later
 rstats_list <- fromJSON("https://www.reddit.com/r/rstats/.json", flatten = T)
 
-## First selected the data dataframe out of rstats_list 
-## Then converted it into tibble format for later data manipulation, excluded the kind character from the final dataframe
-rstats_original_tbl <- as_tibble(rstats_list[["data"]][["children"]][-1])
+## First selected the data dataframe out of rstats_list, which is under children
+## Then converted it into tibble format for later data manipulation
+rstats_original_tbl <- as_tibble(rstats_list[["data"]][["children"]])
 
 ## Used pipelines to create a new dataframe "rstats_tbl" that contains new variables    
 rstats_tbl <- rstats_original_tbl %>% 
@@ -43,20 +43,19 @@ cor <- cor.test(rstats_tbl$upvotes, rstats_tbl$comments)
 cor$estimate
 cor$p.value
 
-
-# Publication
-## print(paste("The correlation between upvotes and comments was r(", cor$parameter, ") =", cor_value,", p =", cor_pvalue, ".","This test was statistically significant."))
-
-## Formatted the correlation values so that it only displays two decimal places
-cor_value <- formatC(cor$estimate, format = "f", digits = 2)
+## Formatted the correlation values so that it only displays two decimal places and then converted it to numeric values 
+cor_value <- as.numeric(formatC(cor$estimate, format = "f", digits = 2))
 
 ## Used str_remove function to remove the leading (first) 0 in the number 
 cor_value <- str_remove(string = cor_value, pattern = "^0")
 
 ## Repeated the above steps for p-value
-cor_pvalue <- formatC(cor$p.value, format = "f", digits = 2)
+cor_pvalue <- as.numeric(formatC(cor$p.value, format = "f", digits = 2))
 cor_pvalue <- str_remove(string = cor_pvalue, pattern = "^0")
 
 
+# Publication
+## Printed the text using paste to combine the text and codes together so the values can be shown dynamically, also wrote if function so that the interpretation will change based on the p-value
+## print(paste("The correlation between upvotes and comments was r(", cor$parameter, ") =", cor_value,", p =", cor_pvalue, ".","This test", if(cor_pvalue < 0.05){"was"}else{"was not"}, "statistically significant."))
 
 

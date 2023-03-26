@@ -66,18 +66,19 @@ cor <- cor.test(rstats_tbl$upvotes, rstats_tbl$comments)
 cor$estimate
 cor$p.value
 
+## Formatted the correlation values so that it only displays two decimal places and then converted it to numeric values 
+cor_value <- as.numeric(formatC(cor$estimate, format = "f", digits = 2))
 
-# Publication
-## print(paste("The correlation between upvotes and comments was r(", cor$parameter ,  ") =", cor_value,",p =", cor_pvalue, ".","This test was statistically significant."))
-
-## Formatted the correlation values so that it only displays two decimal places
-cor_value <- formatC(cor$estimate, format = "f", digits = 2)
-
-## Used str match and replace funtions to remove the leading 0 by identifying the pattern and then replace it with an empty string
-cor_value <- str_replace(string = cor_value, pattern = str_match(cor_value, pattern = '(0)\\.')[,2], replacement = "")
+## Used str_remove function to remove the leading (first) 0 in the number 
+cor_value <- str_remove(string = cor_value, pattern = "^0")
 
 ## Repeated the above steps for p-value
-cor_pvalue <- formatC(cor$p.value, format = "f", digits = 2)
-cor_pvalue <- str_replace(string = cor_pvalue, pattern = str_match(cor_pvalue, pattern = '(0)\\.')[,2], replacement = "")
+cor_pvalue <- as.numeric(formatC(cor$p.value, format = "f", digits = 2))
+cor_pvalue <- str_remove(string = cor_pvalue, pattern = "^0")
+
+
+# Publication
+## Printed the text using paste to combine the text and codes together so the values can be shown dynamically, also wrote if function so that the interpretation will change based on the p-value
+## print(paste("The correlation between upvotes and comments was r(", cor$parameter, ") =", cor_value,", p =", cor_pvalue, ".","This test", if(cor_pvalue < 0.05){"was"}else{"was not"}, "statistically significant."))
 
 
