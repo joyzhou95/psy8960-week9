@@ -50,13 +50,12 @@ cor$p.value
 ## Formatted the correlation values so that it only displays two decimal places
 cor_value <- formatC(cor$estimate, format = "f", digits = 2)
 
-## Used str match and replace funtions to remove the leading 0 by identifying the pattern and then replace it with an empty string
-cor_value <- str_replace(string = cor_value, pattern = str_match(cor_value, pattern = '(0)\\.')[,2], replacement = "")
+## Used str_remove function to remove the leading (first) 0 in the number 
+cor_value <- str_remove(string = cor_value, pattern = "^0")
 
 ## Repeated the above steps for p-value
 cor_pvalue <- formatC(cor$p.value, format = "f", digits = 2)
-cor_pvalue <- str_replace(string = cor_pvalue, pattern = str_match(cor_pvalue, pattern = '(0)\\.')[,2], replacement = "")
-  
+cor_pvalue <- str_remove(string = cor_pvalue, pattern = "^0")
 
 
 
